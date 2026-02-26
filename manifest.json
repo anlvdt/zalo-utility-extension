@@ -1,0 +1,57 @@
+{
+  "manifest_version": 3,
+  "name": "Zalo Utility - Tiện ích Zalo",
+  "version": "1.0.0",
+  "description": "Calculator, Currency Converter, Quick Messages, Pomodoro Timer & Translator for Zalo Web & PC",
+  "author": "Le Van An (Vietnam IT)",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "Zalo Utility"
+  },
+  "permissions": [
+    "storage",
+    "alarms",
+    "notifications",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://translate.googleapis.com/*",
+    "https://vnexpress.net/*",
+    "https://tuoitre.vn/*",
+    "https://thanhnien.vn/*",
+    "https://dantri.com.vn/*",
+    "https://api.exchangerate-api.com/*",
+    "https://open.er-api.com/*",
+    "https://www.vietcombank.com.vn/*",
+    "https://data-asg.goldprice.org/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://chat.zalo.me/*"
+      ],
+      "js": [
+        "shared.js",
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "default_locale": "vi"
+}

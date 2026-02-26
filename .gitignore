@@ -1,0 +1,24 @@
+# Dev-only files (not shipped with extension)
+generate-icons.html
+test-panel.html
+setup.ps1
+
+# Build artifacts
+*.zip
+
+# Backup
+backup_*/
+
+# OS files
+Thumbs.db
+.DS_Store
+Desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Gemini
+.gemini/

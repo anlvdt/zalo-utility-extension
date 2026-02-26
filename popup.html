@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=400">
+  <title>Zalo Utility</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-left">
+      <img src="icons/icon48.png" alt="Logo" class="header-logo">
+      <h1>Zalo Utility</h1>
+    </div>
+    <div class="header-right">
+      <button class="header-icon-btn" id="shortcuts-toggle" title="Phím tắt">?</button>
+      <span class="version-badge">v1.0.0</span>
+    </div>
+  </header>
+
+  <!-- Shortcuts Panel (inline collapsible) -->
+  <div class="shortcuts-panel" id="shortcuts-panel" hidden>
+    <div class="shortcut-row"><kbd>Alt</kbd>+<kbd>B</kbd><span>Ẩn/hiện nội dung chat (Privacy Blur)</span></div>
+    <div class="shortcut-row"><kbd>Ctrl</kbd>+<kbd>Enter</kbd><span>Dịch văn bản đang nhập</span></div>
+    <div class="shortcut-row"><kbd>/lệnh</kbd>+<kbd>Space</kbd><span>Chèn tin nhắn mẫu vào chat</span></div>
+    <div class="shortcut-row"><kbd>Esc</kbd><span>Đóng panel Zalo Utility</span></div>
+    <hr style="border:none;border-top:1px solid var(--border);margin:4px 0">
+    <div class="shortcut-row"><kbd>0</kbd>–<kbd>9</kbd> <kbd>.</kbd><span>Nhập số vào máy tính</span></div>
+    <div class="shortcut-row"><kbd>+</kbd> <kbd>-</kbd> <kbd>*</kbd> <kbd>/</kbd><span>Cộng, trừ, nhân, chia</span>
+    </div>
+    <div class="shortcut-row"><kbd>Enter</kbd><span>Tính kết quả (=)</span></div>
+    <div class="shortcut-row"><kbd>Backspace</kbd><span>Xóa ký tự cuối</span></div>
+    <div class="shortcut-row"><kbd>Esc</kbd> / <kbd>Del</kbd><span>Xóa toàn bộ (C)</span></div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <nav class="tab-nav">
+    <button class="tab-btn active" data-tab="calculator" title="Máy tính">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="4" y="2" width="16" height="20" rx="2" />
+        <line x1="8" y1="6" x2="16" y2="6" />
+        <line x1="8" y1="10" x2="8" y2="10.01" />
+        <line x1="12" y1="10" x2="12" y2="10.01" />
+        <line x1="16" y1="10" x2="16" y2="10.01" />
+        <line x1="8" y1="14" x2="8" y2="14.01" />
+        <line x1="12" y1="14" x2="12" y2="14.01" />
+        <line x1="16" y1="14" x2="16" y2="14.01" />
+        <line x1="8" y1="18" x2="8" y2="18.01" />
+        <line x1="12" y1="18" x2="16" y2="18" />
+      </svg>
+      <span>Máy tính</span>
+    </button>
+    <button class="tab-btn" data-tab="currency" title="Tỉ giá">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="6" x2="12" y2="18" />
+        <path d="M9 10c0-1.1.9-2 2-2h2c1.1 0 2 .9 2 2s-.9 2-2 2h-2c-1.1 0-2 .9-2 2s.9 2 2 2h2c1.1 0 2-.9 2-2" />
+      </svg>
+      <span>Tỉ giá</span>
+    </button>
+    <button class="tab-btn" data-tab="quickmsg" title="Tin nhanh">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </svg>
+      <span>Tin nhắn nhanh</span>
+    </button>
+    <button class="tab-btn" data-tab="pomodoro" title="Pomodoro">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10" />
+        <polyline points="12 6 12 12 16 14" />
+      </svg>
+      <span>Pomodoro</span>
+    </button>
+    <button class="tab-btn" data-tab="translate" title="Dịch nhanh">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 8l6 6" />
+        <path d="M4 14l6-6 2-3" />
+        <path d="M2 5h12" />
+        <path d="M7 2h1" />
+        <path d="M22 22l-5-10-5 10" />
+        <path d="M14 18h6" />
+      </svg>
+      <span>Dịch</span>
+    </button>
+    <button class="tab-btn" data-tab="donate" title="Ủng hộ">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path
+          d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+      </svg>
+      <span>Donate</span>
+    </button>
+  </nav>
+
+  <!-- Tab 1: Calculator -->
+  <div class="tab-content active" id="tab-calculator">
+    <div class="calc-display">
+      <div class="calc-expression" id="calc-expression"></div>
+      <div class="calc-result" id="calc-result">0</div>
+    </div>
+    <div class="calc-memory-bar">
+      <button class="calc-mem-btn" data-action="mc">MC</button>
+      <button class="calc-mem-btn" data-action="mr">MR</button>
+      <button class="calc-mem-btn" data-action="mplus">M+</button>
+      <button class="calc-mem-btn" data-action="mminus">M−</button>
+    </div>
+    <div class="calc-grid">
+      <button class="calc-btn func" data-action="clear">C</button>
+      <button class="calc-btn func" data-action="backspace">⌫</button>
+      <button class="calc-btn func" data-action="percent">%</button>
+      <button class="calc-btn op" data-action="divide">÷</button>
+
+      <button class="calc-btn num" data-action="7">7</button>
+      <button class="calc-btn num" data-action="8">8</button>
+      <button class="calc-btn num" data-action="9">9</button>
+      <button class="calc-btn op" data-action="multiply">×</button>
+
+      <button class="calc-btn num" data-action="4">4</button>
+      <button class="calc-btn num" data-action="5">5</button>
+      <button class="calc-btn num" data-action="6">6</button>
+      <button class="calc-btn op" data-action="subtract">−</button>
+
+      <button class="calc-btn num" data-action="1">1</button>
+      <button class="calc-btn num" data-action="2">2</button>
+      <button class="calc-btn num" data-action="3">3</button>
+      <button class="calc-btn op" data-action="add">+</button>
+
+      <button class="calc-btn func" data-action="negate">±</button>
+      <button class="calc-btn num" data-action="0">0</button>
+      <button class="calc-btn num" data-action="decimal">.</button>
+      <button class="calc-btn equals" data-action="equals">=</button>
+    </div>
+    <div class="calc-extra-row">
+      <button class="calc-btn func small" data-action="sqrt">√</button>
+      <button class="calc-btn func small" data-action="square">x²</button>
+      <button class="calc-btn func small" data-action="copy-result" title="Copy kết quả">Copy</button>
+    </div>
+    <div class="calc-history" id="calc-history">
+      <div class="history-header">
+        <span>Lịch sử</span>
+        <button class="history-clear" id="calc-history-clear">Xóa</button>
+      </div>
+      <div class="history-list" id="calc-history-list"></div>
+    </div>
+  </div>
+
+  <!-- Tab 2: Currency Converter -->
+  <div class="tab-content" id="tab-currency">
+    <div class="currency-card">
+      <label class="currency-label">Số tiền</label>
+      <input type="number" id="currency-amount" class="currency-input" value="1" min="0" step="any">
+    </div>
+    <div class="currency-pair">
+      <div class="currency-select-wrap">
+        <label class="currency-label">Từ</label>
+        <select id="currency-from" class="currency-select">
+          <option value="USD">🇺🇸 USD</option>
+          <option value="VND">🇻🇳 VND</option>
+          <option value="EUR">🇪🇺 EUR</option>
+          <option value="JPY">🇯🇵 JPY</option>
+          <option value="KRW">🇰🇷 KRW</option>
+          <option value="CNY">🇨🇳 CNY</option>
+          <option value="GBP">🇬🇧 GBP</option>
+          <option value="SGD">🇸🇬 SGD</option>
+          <option value="THB">🇹🇭 THB</option>
+          <option value="AUD">🇦🇺 AUD</option>
+          <option value="CAD">🇨🇦 CAD</option>
+          <option value="TWD">🇹🇼 TWD</option>
+        </select>
+      </div>
+      <button class="currency-swap" id="currency-swap" title="Đổi chiều">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4" />
+        </svg>
+      </button>
+      <div class="currency-select-wrap">
+        <label class="currency-label">Sang</label>
+        <select id="currency-to" class="currency-select">
+          <option value="VND">🇻🇳 VND</option>
+          <option value="USD">🇺🇸 USD</option>
+          <option value="EUR">🇪🇺 EUR</option>
+          <option value="JPY">🇯🇵 JPY</option>
+          <option value="KRW">🇰🇷 KRW</option>
+          <option value="CNY">🇨🇳 CNY</option>
+          <option value="GBP">🇬🇧 GBP</option>
+          <option value="SGD">🇸🇬 SGD</option>
+          <option value="THB">🇹🇭 THB</option>
+          <option value="AUD">🇦🇺 AUD</option>
+          <option value="CAD">🇨🇦 CAD</option>
+          <option value="TWD">🇹🇼 TWD</option>
+        </select>
+      </div>
+    </div>
+    <div class="currency-result-card" id="currency-result-card">
+      <div class="currency-result-amount" id="currency-result">—</div>
+      <div class="currency-rate-info" id="currency-rate-info"></div>
+    </div>
+    <div class="currency-status" id="currency-status">Nhập số tiền để chuyển đổi</div>
+  </div>
+
+  <!-- Tab 3: Quick Messages -->
+  <div class="tab-content" id="tab-quickmsg">
+    <div class="qm-categories">
+      <button class="qm-cat-btn active" data-cat="greeting">Chào hỏi</button>
+      <button class="qm-cat-btn" data-cat="business">Công việc</button>
+      <button class="qm-cat-btn" data-cat="support">Hỗ trợ</button>
+      <button class="qm-cat-btn" data-cat="thanks">Cảm ơn</button>
+      <button class="qm-cat-btn" data-cat="custom">Tùy chỉnh</button>
+    </div>
+    <div class="qm-list" id="qm-list"></div>
+    <div class="qm-add-section" id="qm-add-section" style="display:none;">
+      <input type="text" id="qm-new-shortcut" class="qm-input" placeholder="Phím tắt (VD: /chao)">
+      <textarea id="qm-new-text" class="qm-textarea" placeholder="Nội dung tin nhắn..."></textarea>
+      <div class="qm-add-actions">
+        <button class="qm-btn-save" id="qm-save-btn">Lưu</button>
+        <button class="qm-btn-cancel" id="qm-cancel-btn">Hủy</button>
+      </div>
+    </div>
+    <button class="qm-add-btn" id="qm-add-btn">+ Thêm tin nhanh</button>
+  </div>
+
+  <!-- Tab 4: Pomodoro Timer -->
+  <div class="tab-content" id="tab-pomodoro">
+    <div class="pomo-display">
+      <div class="pomo-ring">
+        <svg class="pomo-svg" viewBox="0 0 200 200">
+          <circle class="pomo-bg-circle" cx="100" cy="100" r="90" />
+          <circle class="pomo-progress-circle" id="pomo-progress" cx="100" cy="100" r="90" />
+        </svg>
+        <div class="pomo-time" id="pomo-time">25:00</div>
+        <div class="pomo-label" id="pomo-label">Làm việc</div>
+      </div>
+    </div>
+    <div class="pomo-controls">
+      <button class="pomo-btn" id="pomo-start">▶ Bắt đầu</button>
+      <button class="pomo-btn secondary" id="pomo-reset">↺ Đặt lại</button>
+    </div>
+    <div class="pomo-settings">
+      <div class="pomo-setting">
+        <label>Làm việc</label>
+        <input type="number" id="pomo-work" class="pomo-input" value="25" min="1" max="90"> phút
+      </div>
+      <div class="pomo-setting">
+        <label>Nghỉ ngắn</label>
+        <input type="number" id="pomo-break" class="pomo-input" value="5" min="1" max="30"> phút
+      </div>
+    </div>
+    <div class="pomo-stats">
+      <div class="pomo-stat">
+        <span class="pomo-stat-num" id="pomo-sessions">0</span>
+        <span class="pomo-stat-label">Phiên hoàn thành</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 5: Quick Translate -->
+  <div class="tab-content" id="tab-translate">
+    <div class="trans-lang-row">
+      <select id="trans-from" class="trans-select">
+        <option value="auto">🔍 Tự nhận diện</option>
+        <option value="vi">🇻🇳 Tiếng Việt</option>
+        <option value="en">🇺🇸 English</option>
+        <option value="zh">🇨🇳 中文</option>
+        <option value="ja">🇯🇵 日本語</option>
+        <option value="ko">🇰🇷 한국어</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="th">🇹🇭 ภาษาไทย</option>
+      </select>
+      <button class="trans-swap" id="trans-swap" title="Đổi chiều">⇄</button>
+      <select id="trans-to" class="trans-select">
+        <option value="en">🇺🇸 English</option>
+        <option value="vi">🇻🇳 Tiếng Việt</option>
+        <option value="zh">🇨🇳 中文</option>
+        <option value="ja">🇯🇵 日本語</option>
+        <option value="ko">🇰🇷 한국어</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="th">🇹🇭 ภาษาไทย</option>
+      </select>
+    </div>
+    <textarea id="trans-input" class="trans-textarea" placeholder="Nhập văn bản cần dịch..." rows="4"
+      maxlength="5000"></textarea>
+    <div class="trans-charcount" id="trans-charcount">0 / 5.000</div>
+    <button class="trans-btn" id="trans-btn">Dịch</button>
+    <div class="trans-result-card" id="trans-result-card" style="display:none;">
+      <div class="trans-result-text" id="trans-result"></div>
+      <button class="trans-copy" id="trans-copy" title="Copy">Copy</button>
+    </div>
+    <div class="trans-status" id="trans-status"></div>
+    <div class="trans-history" id="trans-history" style="display:none;">
+      <div class="history-header">
+        <span>Lịch sử dịch</span>
+        <button class="history-clear" id="trans-history-clear">Xóa</button>
+      </div>
+      <div class="trans-history-list" id="trans-history-list"></div>
+    </div>
+  </div>
+
+  <!-- Tab 6: Donate -->
+  <div class="tab-content" id="tab-donate">
+    <div class="donate-section">
+      <div class="donate-title">Ủng hộ tác giả</div>
+      <p class="donate-desc">Nếu bạn thấy tiện ích này hữu ích, hãy cân nhắc ủng hộ tác giả!</p>
+      <div class="donate-methods">
+        <div class="donate-method">
+          <span class="donate-label">Momo:</span>
+          <span class="donate-value" id="popup-donate-momo">0976896621</span>
+          <button class="donate-copy-btn" data-copy="0976896621">Copy</button>
+        </div>
+        <div class="donate-method">
+          <span class="donate-label">MB Bank:</span>
+          <span class="donate-value" id="popup-donate-bank">0360126996868</span>
+          <button class="donate-copy-btn" data-copy="0360126996868">Copy</button>
+        </div>
+        <div class="donate-holder">LE VAN AN</div>
+      </div>
+      <div class="donate-links">
+        <a href="https://github.com/sponsors/anlvdt" target="_blank" rel="noopener"
+          class="donate-link donate-github">GitHub Sponsors</a>
+        <a href="https://collshp.com/laptopleandotcom?view=storefront" target="_blank" rel="noopener"
+          class="donate-link donate-shopee">Shopee Store</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-row">
+      <span>by <a href="https://github.com/anlvdt" target="_blank">Le Van An</a></span>
+      <div class="footer-actions">
+        <button class="footer-btn" id="export-settings" title="Export settings">↓ Export</button>
+        <button class="footer-btn" id="import-settings" title="Import settings">↑ Import</button>
+        <input type="file" id="import-file" accept=".json" style="display:none">
+      </div>
+    </div>
+  </footer>
+
+
+
+  <script src="shared.js"></script>
+  <script src="popup.js"></script>
+</body>
+
+</html>
